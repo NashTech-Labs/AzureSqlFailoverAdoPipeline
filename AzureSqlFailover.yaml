@@ -1,0 +1,37 @@
+trigger:
+- main
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+parameters:
+  - name: failover_group_name
+    type: string
+    default: 'your-failover-group-name'
+  - name: resource_group
+    type: string
+    default: 'your-resource-group'
+  - name: server_name
+    type: string
+    default: 'your-server-name'
+
+stages:
+- stage: FailoverStage
+  displayName: 'Failover SQL Database'
+  jobs:
+  - job: FailoverJob
+    displayName: 'Initiate Failover'
+    steps:
+    - task: AzureCLI@2
+      inputs:
+        azureSubscription: 'us-uat-eastus-compute'
+        scriptType: 'bash'
+        scriptLocation: 'inlineScript'
+        inlineScript: |
+          echo "Initiating failover of SQL Database"
+          az sql failover-group set-primary --name ${{ parameters.failover_group_name }} --resource-group ${{ parameters.resource_group }} --server ${{ parameters.server_name }}
+          echo "Failover completed"
+    env:
+      failover_group_name: 'your-failover-group-name'
+      resource_group: 'us-uat-eas-compute-turnstile-sync-agent-rg'
+      server_name: 'your-server-name'
