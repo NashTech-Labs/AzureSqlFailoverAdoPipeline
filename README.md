@@ -86,7 +86,7 @@ stages:
     steps:
     - task: AzureCLI@2
       inputs:
-        azureSubscription: 'us-uat-eastus-compute'
+        azureSubscription: 'your-Subscription'
         scriptType: 'bash'
         scriptLocation: 'inlineScript'
         inlineScript: |
