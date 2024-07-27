@@ -24,7 +24,7 @@ stages:
     steps:
     - task: AzureCLI@2
       inputs:
-        azureSubscription: 'us-uat-eastus-compute'
+        azureSubscription: 'your-Subscription'
         scriptType: 'bash'
         scriptLocation: 'inlineScript'
         inlineScript: |
@@ -33,5 +33,5 @@ stages:
           echo "Failover completed"
     env:
       failover_group_name: 'your-failover-group-name'
-      resource_group: 'us-uat-eas-compute-turnstile-sync-agent-rg'
+      resource_group: 'your-resource-group'
       server_name: 'your-server-name'
